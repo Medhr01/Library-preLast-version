@@ -150,17 +150,11 @@ def emprunt_livre(request, id):
 
 @login_required
 def emprunt(request, id):
-    if request.POST.get("form") == "livre":
-        exemplaire = Exemplaire.objects.get(id=request.POST.get("exemplaire_id"))
-        client = Client.objects.get(pk=id)
-        page_prec = "Livres"
-
-    elif request.POST.get("form") == "user":
-        livre = Bouquin.objects.get(pk=id)
-        exemplaire = Exemplaire.objects.filter(Bouquin=livre, Statut='Disponible').last()
-        client = Client.objects.get(id=request.POST.get("client"))
-        page_prec = "Clients"
-        
+    
+    livre = Bouquin.objects.get(pk=id)
+    exemplaire = Exemplaire.objects.filter(Bouquin=livre, Statut='Disponible').last()
+    client = Client.objects.get(id=request.POST.get("client"))
+    page_prec = "Clients"
     date_r = datetime.now() + timedelta(weeks=2)
     
     Emprunt.objects.create(
@@ -176,9 +170,16 @@ def emprunt(request, id):
 def emps_hist(request):
     emps = Emprunt.objects.all()
     c_date = datetime.today().date()
+    #Quand un exemplaire prêté ne revient pas à la bibliothèque
     emps_p = Emprunt.objects.filter(Date_retour__lt=c_date, Retourne='-')
     for emp in emps_p:
+        #il est considéré comme perdu
         emp.perdu()
+    #aprés un an
+    emps_p_an = Emprunt.objects.filter(Date_retour__lt=c_date-timedelta(days=365), Retourne='Perdu')
+    for emp in emps_p_an:
+        #on la retirer de la base 
+        emp.delete()
     return render(request, 'emprunt_hist.html', {'emps': emps})
 
 @login_required

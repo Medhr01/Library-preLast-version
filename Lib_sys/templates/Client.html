@@ -63,13 +63,13 @@
             </div>
         </div>
         <center>
-            <img src="{% static 'IDS/user_' %}{{ client.id }}.png" alt="" id="barcode" height="150px">
+            <img src="{% static 'IDS/user_' %}{{ client.id }}.png" alt="" id="barcode" height="150px" style="margin-bottom: 30px;">
         </center>
         <center>
 
-            <button name="btn" type="submit" class="btn btn-success">Save</button>
+            <button name="btn" type="submit" class="btn btn-success">Enregistrer</button>
 
-            <a name="btn" href="{% url 'Delete_user' client.id %}" class="btn btn-danger">Delete</a>
+            <a name="btn" href="{% url 'Delete_user' client.id %}" class="btn btn-danger">Supprimer</a>
             {% if client.Statut == 'Active' %}
             <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=des" class="btn btn-warning">desactiver</a>
             {% else %}

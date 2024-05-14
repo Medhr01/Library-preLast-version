@@ -10500,7 +10500,7 @@
 			 * parameter - if it is not given, the value of `zeroRecords` will be used
 			 * instead (either the default or given value).
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Le tableau est vide.",
 	
 	
 			/**
@@ -10532,7 +10532,7 @@
 			 * to the information (`info`) to give an idea of how strong the filtering
 			 * is. The variable _MAX_ is dynamically updated.
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total _ENTRIES-MAX_)",
+			"sInfoFiltered": "(filteré de _MAX_ total _ENTRIES-MAX_)",
 	
 	
 			/**

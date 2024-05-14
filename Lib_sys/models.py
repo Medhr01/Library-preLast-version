@@ -84,7 +84,7 @@ class Client(models.Model):
 class Exemplaire(models.Model):
     STATUT_CHOICES = [('Disponible', 'Disponible'),
                     ('Perdu', 'Perdu'),
-                    ('Endommagé', 'Endommagé'),
+                    ('Endommagé (à enlever)', 'Endommagé (à enlever)'),
                     ('Prêté', 'Prêté')]
     Bouquin = models.ForeignKey('Bouquin', on_delete=models.CASCADE)
     Id_exemplaire = models.CharField(max_length=100)
@@ -138,7 +138,7 @@ class Emprunt(models.Model):
         if etat == "v":
             self.Exemplaire.Statut = 'Disponible'
         else:
-            self.Exemplaire.Statut = 'Endommagé'
+            self.Exemplaire.Statut = 'Endommagé (à enlever)'
         self.Exemplaire.save()
         self.Retourne = str(datetime.today().strftime("%d/%m/%Y"))
         self.save()
