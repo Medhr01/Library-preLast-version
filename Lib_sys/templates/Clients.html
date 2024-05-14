@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block title %}Clients List{% endblock %}
+
+{% block content %}
+<center>
+  <h1 style="color: white;">Les clients</h1>
+</center>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <form action="" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+          {{ form.image}}
+          <label for="floatingInput">Image</label>
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.Nom }}
+          <label for="floatingInput">Nom</label>
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.Prenom }}
+          <label for="floatinInput">Prénom</label>
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.Date_de_naissance }}
+          <label for="floatinInput">Date de naissance</label>
+        </div>
+        <div class="form-floating mb-3">
+          {{form.CNI }}
+          <label for="floatinInput">CNI</label>
+        </div>
+        <div class="form-floating">
+          <button type="submit" class="btn btn-success">Ajouter Client</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-8">
+      
+      <br>
+      <table id="myTable" class="table text-center" style="width:100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>CNI</th>
+            <th>Date d'inscription</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="myTable1">
+          {% for client in clients %}
+          <tr>
+            <td id="row"><a href="{% url 'Client' client.id %}" class="text-decoration-none">{{client.id}}</a></td>
+            <td>{{client.Nom}}</td>
+            <td>{{client.Prenom}}</td>
+            <td>{{client.Date_de_naissance | date:"d/m/Y" }}</td>
+            <td>{{client.CNI}}</td>
+            <td>{{client.Date_d_inscription| date:"d/m/Y" }}</td>
+            <td>{{client.Statut}}</td>
+            <td>
+              {% if client.Statut == "Active" %}
+                <a href="{% url 'Client_emprunt' client.id %}" class="btn btn-success">Emprunter</a>
+              {% else %}
+                <button class="btn btn-success" disabled>Emprunter</button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

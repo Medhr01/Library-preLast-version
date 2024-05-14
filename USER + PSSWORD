@@ -1,0 +1,7 @@
+USER 1 : hrox
+PASSWORD : hr1234
+
+USER 2 : orca
+PASSWORD : or1234
+
+(or simply create a superuser via la commande Django dans la ligne de commande )

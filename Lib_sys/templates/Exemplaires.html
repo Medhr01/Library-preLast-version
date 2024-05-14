@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block title %}Exemplaires List{% endblock %}
+
+{% block content %}
+
+<center>
+    <h1 style="color: white;">Les exemplaires</h1>
+</center>
+
+<div class="container">
+    <table id="myTable" class="table table-striped" >
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Exemplaire</th>
+                <th>Livre</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        
+        </thead>
+        
+            <tbody id="myTable1">
+            {% for emp in exemplaires %}
+            <tr>
+                <td id="row">{{emp.id}}</td>
+                <td>{{emp.Id_exemplaire}} </td>
+                <td>{{emp.Bouquin}} ({{emp.Bouquin.Statut}})</td>
+                <td>{{emp.Statut}}</td>
+                <td>
+                    {% if emp.Statut == "Endommagé" %}
+                    <a href="{% url 'Modifier_exmp' emp.id %}?act=renv" class="btn btn-success">Renouvler</a>
+                    {% else %}
+                    <button class="btn btn-success" disabled>Renouvler</button>
+                    {% endif %}
+                    <a href="{% url 'Modifier_exmp' emp.id %}?act=retr" class="btn btn-danger">Retirer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+{% endblock %}

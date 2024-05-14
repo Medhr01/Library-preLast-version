@@ -1,0 +1,92 @@
+body {
+            background-image: url('/static/imgs/bww.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed
+            
+          }
+
+          body form input{
+            opacity: 90%;
+          }
+
+        body table { 
+            border-radius: 50%;}
+      
+
+          #myTable {
+            border-collapse: collapse;
+            opacity: 90%;
+            font-size: 15px;
+            text-align: center;
+
+          }
+          #myTable a {
+            color: rgb(240, 176, 40);
+          }
+          #myTable th{
+            background-color: #976d4b !important;
+            font-weight: bold;
+            font-size: 17px;
+
+          }
+          #myTable, #myTable td {
+            border: 1px solid rgb(245, 232, 197);
+            background-color:  #976d4b;
+            color: #faeadc;
+            border: none;
+          }
+
+          .button {
+            background-color: #007bff; 
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+          }
+          #myTable .btn.btn-success, #myTable .btn.btn-primary, .col-sm-3 form .btn.btn-success, .col-sm-3 form .btn.btn-primary {
+            background-color: rgb(212, 152, 23);
+            color: white;
+            border: none;
+          }
+          #myTable .btn.btn-success:hover, #myTable .btn.btn-primary:hover, .col-sm-3 form .btn.btn-success:hover, .col-sm-3 form .btn.btn-primary:hover{
+            background-color: #ffffff;
+            color: rgb(212, 152, 23);
+          }
+          #myTable .btn.btn-danger{
+            background-color: #ff0000;
+            color: white;
+          }
+          #myTable .btn.btn-danger:hover{
+            background-color: #F66;
+            color: black;
+          }
+          #myTable .btn.btn-warning{
+            background-color: #ff0000;
+            border-color: red;
+            color: white;
+          }
+          #myTable .btn.btn-warning:hover{
+            background-color: #F66;
+            border-color: #F66;
+            color: black;
+          }
+
+          .col-sm-3 form .btn.btn-success, .col-sm-3 form .btn.btn-primary{
+            width: 100%;
+          }
+          
+          .button:hover {
+            background-color: #add8e6; 
+            color: black;
+          }
+
+          .navbar-nav #lg{
+            width:62px;
+          }
+         
+          .navbar-nav{
+            font-size: 23px;
+          }
+
+          
+

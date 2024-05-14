@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{livre}}{% endblock %}
+{% block content %}
+<div class="container-sm">
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row m-2">
+
+            <center><img src="{{livre.Cover.url}}" height="200px"></center>
+
+        </div>
+        <center>
+
+            <button name="btn" type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="{% url 'delete_livre' livre.id %}" class="btn btn-danger">Supprimer</a>
+            {% if livre.Statut == "Disponible pour prêt" %}
+            <a href="{% url 'pret' livre.id %}?pret=non" class="btn btn-warning">Désactiver prêt</a>
+            {% else %}
+            {% if livre.Quantite_Disponible > 1 %}
+            <a href="{% url 'pret' livre.id %}?pret=oui" class="btn btn-warning">Activer prêt</a>
+            {% else %}
+            <button class="btn btn-warning" disabled>Activer prêt</button>
+            {% endif %}
+            {% endif %}
+        </center>
+        <center>
+            {% if livre.Statut == "Disponible pour prêt" %}
+            <span class="badge rounded-pill bg-success">{{livre.Statut}}</span>
+            {% else %}
+            <span class="badge rounded-pill bg-danger">Consultation sur place uniquement</span>
+            {% endif %}
+
+        </center>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Titre }}
+                    <label for="floatingInput">Titre</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Auteur }}
+                    <label for="floatinInput">Auteur</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{form.Description }}
+                    <label for="floatinInput">Description</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" value="{{ livre.ISBN }}" disabled>
+                    <label for="floatinInput">ISBN</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Langue }}
+                    <label for="floatinInput">Langue</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" value="{{ livre.Quantite_achete }}" disabled>
+                    <label for="floatinInput">Quantité</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" value="{{ livre.Quantite_Disponible }}"
+                        disabled>
+                    <label for="floatinInput">Nombre d'exemplaires</label>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="container-sm">
+        <form action="{% url 'add' livre.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-floating mb-3">
+                        <input type="number" min="1" class="form-control" id="floatingInput" name="n_plus" placeholder="Quantité">
+                        <label for="floatingInput">Acheter plus d'exemplaires</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success" style="height: calc(3.5rem + 2px); width: 25%; font-weight: bolder;">
+                        <i class="bi bi-plus-circle-fill" style="font-size: 1.5rem; color: white;"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+
+
+
+{% endblock content %}

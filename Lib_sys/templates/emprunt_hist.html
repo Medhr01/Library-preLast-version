@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+
+{% block title %}Emprunt historique{% endblock %}
+
+{% block content %}
+    <center><h1 style="color: white;">Les livres empruntés</h1></center>
+    
+    
+<div class="container-fluid pt-5">
+    
+    <br>
+    <table id="myTable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Livre/Exemplaire</th>
+                <th>Client</th>
+                <th>Bibliothécaire</th>
+                <th>Date d'Emprunt</th>
+                <th>Date limite de routeur</th>
+                <th>Retourné</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    <tbody id="myTable1">
+        {% for emp in emps %}
+        <tr>
+            <td id="row">{{emp.Exemplaire | safe}}</td>
+            <td>{{emp.Client}}</td>
+            <td>{{emp.bibliothecaire}}</td>
+            <td>{{emp.Date_emprunt | date:"d/m/Y"}}</td>
+            <td>{{emp.Date_retour | date:"d/m/Y"}}</td>
+            <td>{{emp.Retourne }}</td>
+            <td>
+                {% if emp.Retourne == "-" or emp.Retourne == "Perdu" %}
+                
+                <a href="{% url 'return' emp.id %}?act=v" class="btn btn-success">Retourner</a>
+                <a href="{% url 'return' emp.id %}?act=endm" class="btn btn-warning">Retourner endommagé</a>
+                
+                {% else %}
+                Retourné
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

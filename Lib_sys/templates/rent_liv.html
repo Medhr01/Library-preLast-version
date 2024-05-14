@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Rent Exemplaire for <u>{{livre}}/{{ exemplaire.numero_exemplaire }}</u></h2>
+<div class="container-sm pt-5">
+    
+
+        <table id="myTable" class="table table-striped text-center" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Date de naissance</th>
+                    <th>CNI</th>
+                    <th>Date d'inscription</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td id="row">{{client.id}}</td>
+                    <td>{{client.Nom}}</td>
+                    <td>{{client.Prenom}}</td>
+                    <td>{{client.Date_de_naissance | date:"d/m/Y"}}</td>
+                    <td>{{client.CNI}}</td>
+                    <td>{{client.Date_d_inscription | date:"d/m/Y" }}</td>
+                    <td>{{client.Statut}}</td>
+                    <td>
+                        <form method="post" action="{% url 'Emprunt' client.id %}">
+                            <input type="hidden" name="form" value="livre">
+                            <input type="hidden" name="exemplaire_id" value="{{ exemplaire.id }}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Emprunter</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block title %}Consultation historique{% endblock %}
+
+{% block content %}
+    <center><h1>Les livres en cours de Consultation</h1></center>
+    <div class="container pt-5">
+    <table id="myTable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Livre/Exemplaire</th>
+                <th>Client</th>
+                <th>Respo</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for cons in conses %}
+        <tr>
+            <td id="row">{{cons.Exconslaire | safe}}</td>
+            <td>{{cons.Client}}</td>
+            <td>{{cons.mUser}}</td>
+            <td>{{cons.Date}}</td>
+            <td>
+                <a href="{% url 'return' cons.id %}?act=v"" class="btn btn-success">Return</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

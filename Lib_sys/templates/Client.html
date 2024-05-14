@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{client}}/{{client.id}}{% endblock %}
+{% block content %}
+<div class="container-sm">
+
+    <form action="{% url 'Client' client.id %}" method="POST">
+        {% csrf_token %}
+        <div class="row m-2">
+            
+                <center><img src="{{client.image.url}}" height="100px"></center>
+            
+        </div>
+        <center>
+            {% if client.Statut == "Active" %}
+            <span class="badge rounded-pill bg-success">Activé</span>
+            {% else %}
+            <span class="badge rounded-pill bg-danger">Desactivé</span>
+            {% endif %}
+
+        </center>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Nom }}
+                    <label for="floatingInput">Nom</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Prenom }}
+                    <label for="floatinInput">Prénom</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{form.CNI }}
+                    <label for="floatinInput">CNI</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    {{ form.Date_de_naissance }}
+                    <label for="floatinInput">Date de naissance</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" value="{{ client.Date_d_inscription | date:" d/m/Y" }}" class="form-control"
+                        id="floatingInput" disabled>
+                    <label for="floatinInput">Date d'inscription</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" value="{{client.id}}" disabled>
+                    <label for="floatinInput">ID</label>
+                </div>
+            </div>
+        </div>
+        <center>
+            <img src="{% static 'IDS/user_' %}{{ client.id }}.png" alt="" id="barcode" height="150px">
+        </center>
+        <center>
+
+            <button name="btn" type="submit" class="btn btn-success">Save</button>
+
+            <a name="btn" href="{% url 'Delete_user' client.id %}" class="btn btn-danger">Delete</a>
+            {% if client.Statut == 'Active' %}
+            <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=des" class="btn btn-warning">desactiver</a>
+            {% else %}
+            <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=act" class="btn btn-warning">Activer</a>
+            {% endif%}
+            <button name="btn" type="button" class="btn btn-secondary" id="print-btn">Print</button>
+        </center>
+</div>
+
+
+</form>
+<script>
+    document.getElementById("print-btn").addEventListener("click", printUserInformation);
+
+    function printUserInformation() {
+        // Hide buttons before printing
+        var buttons = document.getElementsByName("btn");
+        buttons.forEach(function (button) {
+            button.style.display = 'none';
+        });
+
+        // Print the page
+        window.print();
+
+        // Show buttons again after printing
+        setTimeout(function () {
+            buttons.forEach(function (button) {
+                button.style.display = '';
+            });
+        }, 100); // Wait for 1 second after printing
+    }
+</script>
+
+
+
+
+</div>
+
+
+{% endblock content %}

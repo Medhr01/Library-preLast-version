@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<center>
+    <h1 style="font-size: 40px; color:white;">Les statistiques</h1>
+
+    <div class="container-fluid">
+        <div class="row m-5">
+            <div class="col-md-6">
+                <div class="card yellow custom-card mb-5">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h4><img src="{% static 'imgs/people.svg' %}" width="40px"> Il y'a {{Clients}} <a href="/Clients" style="color:rgb(227, 187, 136);">Clients</a>.</h4>
+                    </div>
+                </div>
+                <div class="card blue custom-card mb-5">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h4><img src="{% static 'imgs/book.svg' %}" width="40px"> Il y'a {{Livres}} <a href="/Livres" style="color:rgb(227, 187, 136);">Livres</a>.</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card green custom-card mb-5">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h4><img src="{% static 'imgs/journal-text.svg' %}" width="40px"> Il y'a {{Exemplaires}} <a href="/Exemplaires" style="color:rgb(227, 187, 136);">Exemplaires</a> en total.</h4>
+                    </div>
+                </div>
+                <div class="card red custom-card mb-5">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h4><img src="{% static 'imgs/journal-check.svg' %}" width="40px"> Il y'a {{Emprunts}} <a href="/Emprunt_hist" style="color:rgb(227, 187, 136);">Exemplaires empruntés</a>.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-card {
+            width: 12cm;
+            height: 5cm; 
+        }
+        h4 {
+            font-size: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            padding: 2px; 
+            color: rgb(227, 187, 136); 
+        }
+        .yellow {
+            background-color: #78625d ; 
+            color: #411e0f;
+        }
+        .blue {
+            background-color: #532b18 ; 
+        }
+        .green {
+            background-color: #a99382 ;
+            color: #532b18;
+        }
+        .red {
+            background-color: #976d4b ;
+            color: #411e0f; 
+        }
+        .card-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+</center>
+{% endblock %}

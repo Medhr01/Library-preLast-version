@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block title %}Livres List{% endblock %}
+
+{% block content %}
+<center>
+    <h1 style="color: white;">Les Livres</h1>
+</center>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <form action="/Livres/" method="POST"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {{ form.Cover}}
+                    <label for="floatingInput">Cover</label>
+                  </div>
+                <div class="form-floating mb-3">
+                    {{ form.Titre }}
+                    <label for="floatingInput">Titre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.Auteur }}
+                    <label for="floatinInput">Auteur</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.Description }}
+                    <label for="floatinInput">Description</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{form.ISBN }}
+                    <label for="floatinInput">ISBN</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.Langue }}
+                    <label for="floatinInput">Langue</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.Quantite_achete }}
+
+                    <label for="floatinInput">Quantite</label>
+                </div>
+                <div class="form-floating">
+                    <button type="submit" class="btn btn-primary">Ajouter Livre</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-9">
+            
+            <br>
+            <table id="myTable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Description</th>
+                        <th>Langue</th>
+                        <th>Quantité achetée</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable1">
+                    {% for livre in livres %}
+                    <tr>
+                        <td id="row"><a href="{% url 'Livre' livre.ISBN %}"
+                                class="text-decoration-none">{{livre.ISBN}}</a></td>
+                        <td>{{livre.Titre}}</td>
+                        <td>{{livre.Auteur}}</td>
+                        <td>{{livre.Description}}</td>
+                        <td>{{livre.Langue}}</td>
+                        <td>{{livre.Quantite_achete}} ({{livre.Quantite_Disponible}})</td>
+                        <td>{{livre.Statut}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
