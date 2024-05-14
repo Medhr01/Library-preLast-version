@@ -12,24 +12,24 @@
             <div class="col-md-6">
                 <div class="card yellow custom-card mb-5">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h4><img src="{% static 'imgs/people.svg' %}" width="40px"> Il y'a {{Clients}} <a href="/Clients" style="color:rgb(227, 187, 136);">Clients</a>.</h4>
+                        <h4><i class="bi bi-people" style="font-size: 30px;"></i> Il y'a {{Clients}} <a href="/Clients" style="color:rgb(227, 187, 136);">Clients</a>.</h4>
                     </div>
                 </div>
                 <div class="card blue custom-card mb-5">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h4><img src="{% static 'imgs/book.svg' %}" width="40px"> Il y'a {{Livres}} <a href="/Livres" style="color:rgb(227, 187, 136);">Livres</a>.</h4>
+                        <h4><i class="bi bi-book" style="font-size: 30px;"></i> Il y'a {{Livres}} <a href="/Livres" style="color:rgb(227, 187, 136);">Livres</a>.</h4>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card green custom-card mb-5">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h4><img src="{% static 'imgs/journal-text.svg' %}" width="40px"> Il y'a {{Exemplaires}} <a href="/Exemplaires" style="color:rgb(227, 187, 136);">Exemplaires</a> en total.</h4>
+                        <h4><i class="bi bi-journal-check" style="font-size: 30px;"></i> Il y'a {{Exemplaires}} <a href="/Exemplaires" style="color:rgb(227, 187, 136);">Exemplaires</a> en total.</h4>
                     </div>
                 </div>
                 <div class="card red custom-card mb-5">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h4><img src="{% static 'imgs/journal-check.svg' %}" width="40px"> Il y'a {{Emprunts}} <a href="/Emprunt_hist" style="color:rgb(227, 187, 136);">Exemplaires empruntés</a>.</h4>
+                        <h4><i class="bi bi-journal-text" style="font-size: 30px;"></i> Il y'a {{Emprunts}} <a href="/Emprunt_hist" style="color:rgb(227, 187, 136);">Exemplaires empruntés</a>.</h4>
                     </div>
                 </div>
             </div>
@@ -43,6 +43,7 @@
         }
         h4 {
             font-size: 20px;
+            color: white;
         }
         .card {
             border-radius: 10px;
