@@ -49,7 +49,7 @@ def user_logout(request):
 def clients(request):
     clients = Client.objects.all()
     if request.method == 'POST':
-        form = ClientForm(request.POST, request.FILES, initial={'status': 'Active'})
+        form = ClientForm(request.POST, request.FILES, initial={'status': 'Inactif'})
         if form.is_valid():
             client = form.save()
             # Generating CodeBar for new client
@@ -60,7 +60,7 @@ def clients(request):
             barcode_instance.save(file_path, options={'module_width': 0.5, 'module_height': 20, 'quiet_zone': 1})
             return redirect('Clients')
     else:
-        form = ClientForm(initial={'status': 'Active'})
+        form = ClientForm(initial={'status': 'Actif'})
     
     return render(request, 'Clients.html', {'clients': clients, 'form': form})
 
@@ -140,13 +140,7 @@ def emprunt_client(request, id):
 
     return render(request, 'rent_u.html', {'livres': livres, 'client': client, 'count': count})
 
-@login_required
-def emprunt_livre(request, id):
-    clients = Client.objects.filter(Statut="Active")
-    livre = Bouquin.objects.get(pk=id)
-    exemplaire = Exemplaire.objects.filter(Bouquin=livre, Statut='Disponible').last()
-    
-    return render(request, 'rent_liv.html', {'livre': livre, 'exemplaire': exemplaire, 'clients': clients})
+
 
 @login_required
 def emprunt(request, id):
@@ -178,8 +172,8 @@ def emps_hist(request):
     #aprés un an
     emps_p_an = Emprunt.objects.filter(Date_retour__lt=c_date-timedelta(days=365), Retourne='Perdu')
     for emp in emps_p_an:
-        #on la retirer de la base 
-        emp.delete()
+        #on la retirer de la base et banne le client
+        emp.Exemplaire.delete()
     return render(request, 'emprunt_hist.html', {'emps': emps})
 
 @login_required

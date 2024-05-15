@@ -20,7 +20,6 @@ urlpatterns = [
     path('pret/<int:id>', views.pret, name='pret'),
     path('add/<int:id>', views.acheter_plus, name='add'),
     path('Client_emprunt/<int:id>/', views.emprunt_client , name='Client_emprunt'),
-    path('Livre_emprunt/<int:id>', views.emprunt_livre, name="Livre_emprunt"),
     path('Emprunt/<int:id>', views.emprunt, name='Emprunt'),
     path('Emprunt_hist/', views.emps_hist , name="Emprunt_hist"),
     path('Delete_livre/<int:id>',views.delete_livre,name="delete_livre"),

@@ -57,9 +57,9 @@ class Bouquin(models.Model):
 
 class Client(models.Model):
     STATUT_CHOICES = [
-        ('Active', 'Active'),
-        ('Non active', 'Non active'),
-        ('Banned', 'Banned'),
+        ('Actif(ve)', 'Actif(ve)'),
+        ('Inactif(ve)', 'Inactif(ve)'),
+        ('Banné', 'Banné'),
     ]
 
     Nom = models.CharField(max_length=100)
@@ -67,18 +67,18 @@ class Client(models.Model):
     Date_de_naissance = models.DateField()
     CNI = models.CharField(max_length=20, unique=True)
     Date_d_inscription = models.DateField(auto_now_add=True)
-    Statut = models.CharField(max_length=50, default="Active")
+    Statut = models.CharField(max_length=50, default="Actif")
     image = models.ImageField(upload_to="clients/", default="/client.png")
 
     def __str__(self):
         return f'{self.Nom} {self.Prenom}'
     
     def activer(self):
-        self.Statut ="Active"
+        self.Statut ="Actif(ve)"
         self.save()
         
     def desactiver(self):
-        self.Statut ="Non active"
+        self.Statut ="Inactif(ve)"
         self.save()
 
 class Exemplaire(models.Model):
@@ -127,12 +127,23 @@ def auto_create_exemplaires(sender, instance, created, **kwargs):
             )
 
 class Emprunt(models.Model):
-    Exemplaire = models.ForeignKey('Exemplaire', on_delete=models.CASCADE)
-    Client = models.ForeignKey('Client', on_delete=models.CASCADE)
-    bibliothecaire = models.ForeignKey('bibliothecaire', on_delete=models.CASCADE)
+    Exemplaire = models.ForeignKey('Exemplaire', on_delete=models.SET_NULL, null=True)
+    Client = models.ForeignKey('Client', on_delete=models.SET_NULL, null=True)
+    bibliothecaire = models.ForeignKey('bibliothecaire', on_delete=models.SET_NULL, null=True)
     Date_emprunt = models.DateField(auto_now_add=True)
-    Date_retour =  models.DateField()
+    Date_retour = models.DateField()
     Retourne = models.CharField(default="-", max_length=50)
+
+    #pour l'historiue
+    exemplaire_info = models.CharField(max_length=200, blank=True)
+    client_info = models.CharField(max_length=200, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.Exemplaire:
+            self.exemplaire_info = str(self.Exemplaire)
+        if self.Client:
+            self.client_info = str(self.Client)
+        super().save(*args, **kwargs)
 
     def return_exmp(self, etat):
         if etat == "v":
@@ -144,6 +155,9 @@ class Emprunt(models.Model):
         self.save()
     
     def perdu(self):
-        self.Retourne = self.Exemplaire.Statut = "Perdu"
+        if self.Exemplaire:
+            self.Exemplaire.Statut = "Perdu"
+            self.Exemplaire.save()
+        self.Retourne = "Perdu"
         self.save()
         self.Exemplaire.save()

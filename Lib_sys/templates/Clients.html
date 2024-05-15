@@ -64,7 +64,7 @@
             <td>{{client.Date_d_inscription| date:"d/m/Y" }}</td>
             <td>{{client.Statut}}</td>
             <td>
-              {% if client.Statut == "Active" %}
+              {% if client.Statut == "Actif(ve)" %}
                 <a href="{% url 'Client_emprunt' client.id %}" class="btn btn-success">Emprunter</a>
               {% else %}
                 <button class="btn btn-success" disabled>Emprunter</button>

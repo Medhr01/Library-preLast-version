@@ -12,10 +12,10 @@
             
         </div>
         <center>
-            {% if client.Statut == "Active" %}
-            <span class="badge rounded-pill bg-success">Activé</span>
+            {% if client.Statut == "Actif(ve)" %}
+            <span class="badge rounded-pill bg-success">{{client.Statut}}</span>
             {% else %}
-            <span class="badge rounded-pill bg-danger">Desactivé</span>
+            <span class="badge rounded-pill bg-danger">{{client.Statut}}</span>
             {% endif %}
 
         </center>
@@ -70,12 +70,12 @@
             <button name="btn" type="submit" class="btn btn-success">Enregistrer</button>
 
             <a name="btn" href="{% url 'Delete_user' client.id %}" class="btn btn-danger">Supprimer</a>
-            {% if client.Statut == 'Active' %}
-            <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=des" class="btn btn-warning">desactiver</a>
+            {% if client.Statut == 'Actif(ve)' %}
+            <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=des" class="btn btn-warning">Desactiver</a>
             {% else %}
             <a name="btn" href="{% url 'Modifier_Client' client.id %}?action=act" class="btn btn-warning">Activer</a>
             {% endif%}
-            <button name="btn" type="button" class="btn btn-secondary" id="print-btn">Print</button>
+            <button name="btn" type="button" class="btn btn-secondary" id="print-btn">Imprimer</button>
         </center>
 </div>
 
